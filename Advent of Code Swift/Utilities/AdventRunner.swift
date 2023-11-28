@@ -23,5 +23,8 @@
 import Foundation
 
 protocol AdventRunner {
+    var year: String { get }
+    var day: String { get }
+    
     func run(withInputDirectoryURL: URL)
 }

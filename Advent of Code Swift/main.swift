@@ -31,15 +31,18 @@ let adventRunners: [String: [String: AdventRunner]] = [
     ]
 ]
 
-guard let runner = adventRunners[year]?[day] else {
-    print("Invalid year/day (provided \(year)/\(day))")
-    exit(1)
-}
-
 guard let inputRootPath = ProcessInfo.processInfo.environment[environmentKeyInputRoot] else {
     print("Environment variable \(environmentKeyInputRoot) not set")
     exit(2)
 }
 
 let inputDirectory = URL(fileURLWithPath: inputRootPath).appending(path: year)
+
+guard let runner = adventRunners[year]?[day] else {
+    print("Invalid year/day (provided \(year)/\(day))")
+    exit(1)
+}
+
+print("Running advent \(runner.year) day \(runner.day)")
 runner.run(withInputDirectoryURL: inputDirectory)
+print()

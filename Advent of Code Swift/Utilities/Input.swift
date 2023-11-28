@@ -20,6 +20,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-func getInputFilename(withYear year: String, andDay day: String) -> String {
+func getInputFilename(forYear year: String, andDay day: String) -> String {
     return "input-\(year)-day\(day).txt"
 }
