@@ -85,10 +85,10 @@
 		495086FF2B1525A500907CF0 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				495087082B1583A200907CF0 /* AdventError.swift */,
 				495087002B1525BE00907CF0 /* AdventRunner.swift */,
 				495087042B15377C00907CF0 /* Constants.swift */,
 				495087062B15702900907CF0 /* Input.swift */,
-				495087082B1583A200907CF0 /* AdventError.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
