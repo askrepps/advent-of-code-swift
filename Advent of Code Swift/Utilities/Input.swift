@@ -20,35 +20,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-import Foundation
-
-private func convertToCalorieSums(_ data: String) -> [Int] {
-    data.split(separator: "\n\n").map { group in
-        group.split(separator: "\n")
-            .compactMap { line in Int(line) }
-            .reduce(0, +)
-    }
-}
-
-private func getPart1Answer(_ calorieSums: [Int]) -> Int {
-    return calorieSums.max() ?? -1
-}
-
-private func getPart2Answer(_ calorieSums: [Int]) -> Int {
-    let sortedSumsDescending = calorieSums.sorted { $0 > $1 }
-    return sortedSumsDescending[0..<3].reduce(0, +)
-}
-
-class Advent2022Day01Runner: AdventRunner {
-    func run(withInputDirectoryURL inputURL: URL) {
-        do {
-            let inputFileURL = inputURL.appending(path: getInputFilename(withYear: "2022", andDay: "01"))
-            let data = try String(contentsOf: inputFileURL, encoding: .utf8)
-            let calorieSums = convertToCalorieSums(data)
-            print("The answer to part 1 is \(getPart1Answer(calorieSums))")
-            print("The answer to part 2 is \(getPart2Answer(calorieSums))")
-        } catch {
-            print("Error: \(error)")
-        }
-    }
+func getInputFilename(withYear year: String, andDay day: String) -> String {
+    return "input-\(year)-day\(day).txt"
 }
