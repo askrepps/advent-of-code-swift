@@ -22,9 +22,6 @@
 
 import Foundation
 
-let runnerYear = "2022"
-let runnerDay = "01"
-
 let adventRunners: [String: [String: AdventRunner]] = [
     "2022": [
         "01": Advent2022Day01Runner()
@@ -50,8 +47,17 @@ func run(forYear year: String, andDay day: String, withInputDirectory inputDirec
 }
 
 do {
-    let inputDirectory = try getInputDirectoryURL(forYear: runnerYear)
-    try run(forYear: runnerYear, andDay: runnerDay, withInputDirectory: inputDirectory)
+    guard CommandLine.arguments.count >= 3 else {
+        throw AdventError.invalidArguments("Arguments for year and day not provided")
+    }
+    let year = CommandLine.arguments[1]
+    guard let dayNumber = Int(CommandLine.arguments[2]) else {
+        throw AdventError.invalidArguments("Day argument must be a valid number")
+    }
+    let day = String(format: "%02d", dayNumber)
+    
+    let inputDirectory = try getInputDirectoryURL(forYear: year)
+    try run(forYear: year, andDay: day, withInputDirectory: inputDirectory)
 } catch AdventError.environmentError(let message) {
     print("Environment error: \(message)")
     exit(1)
