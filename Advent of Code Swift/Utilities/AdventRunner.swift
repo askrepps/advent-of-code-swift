@@ -21,26 +21,7 @@
 // SOFTWARE.
 
 import Foundation
-import Foundation.NSPathUtilities
 
-let year = "2022"
-let day = "01"
-
-let adventRunners: [String: [String: AdventRunner]] = [
-    "2022": [
-        "01": Advent2022Day01Runner()
-    ]
-]
-
-guard let runner = adventRunners[year]?[day] else {
-    print("Invalid year/day (provided \(year)/\(day))")
-    exit(1)
+protocol AdventRunner {
+    func run(withInputDirectoryURL: URL)
 }
-
-guard let inputRootPath = ProcessInfo.processInfo.environment[environmentKeyInputRoot] else {
-    print("Environment variable \(environmentKeyInputRoot) not set")
-    exit(2)
-}
-
-let inputDirectory = URL(fileURLWithPath: inputRootPath).appending(path: year)
-runner.run(withInputDirectoryURL: inputDirectory)

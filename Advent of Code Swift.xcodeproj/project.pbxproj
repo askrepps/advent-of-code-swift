@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		495086F42B14FFDB00907CF0 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495086F32B14FFDB00907CF0 /* main.swift */; };
+		495086FE2B1524ED00907CF0 /* advent2022day01.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495086FD2B1524ED00907CF0 /* advent2022day01.swift */; };
+		495087012B1525BE00907CF0 /* AdventRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495087002B1525BE00907CF0 /* AdventRunner.swift */; };
+		495087052B15377C00907CF0 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495087042B15377C00907CF0 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +28,9 @@
 /* Begin PBXFileReference section */
 		495086F02B14FFDB00907CF0 /* Advent of Code Swift */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Advent of Code Swift"; sourceTree = BUILT_PRODUCTS_DIR; };
 		495086F32B14FFDB00907CF0 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		495086FD2B1524ED00907CF0 /* advent2022day01.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = advent2022day01.swift; sourceTree = "<group>"; };
+		495087002B1525BE00907CF0 /* AdventRunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdventRunner.swift; sourceTree = "<group>"; };
+		495087042B15377C00907CF0 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,9 +63,28 @@
 		495086F22B14FFDB00907CF0 /* Advent of Code Swift */ = {
 			isa = PBXGroup;
 			children = (
+				495086FF2B1525A500907CF0 /* Utilities */,
+				495086FC2B1524C900907CF0 /* 2022 */,
 				495086F32B14FFDB00907CF0 /* main.swift */,
 			);
 			path = "Advent of Code Swift";
+			sourceTree = "<group>";
+		};
+		495086FC2B1524C900907CF0 /* 2022 */ = {
+			isa = PBXGroup;
+			children = (
+				495086FD2B1524ED00907CF0 /* advent2022day01.swift */,
+			);
+			path = 2022;
+			sourceTree = "<group>";
+		};
+		495086FF2B1525A500907CF0 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				495087002B1525BE00907CF0 /* AdventRunner.swift */,
+				495087042B15377C00907CF0 /* Constants.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -120,7 +145,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				495087052B15377C00907CF0 /* Constants.swift in Sources */,
+				495087012B1525BE00907CF0 /* AdventRunner.swift in Sources */,
 				495086F42B14FFDB00907CF0 /* main.swift in Sources */,
+				495086FE2B1524ED00907CF0 /* advent2022day01.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
