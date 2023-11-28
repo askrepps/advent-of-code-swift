@@ -22,8 +22,8 @@
 
 import Foundation
 
-let year = "2022"
-let day = "01"
+let runnerYear = "2022"
+let runnerDay = "01"
 
 let adventRunners: [String: [String: AdventRunner]] = [
     "2022": [
@@ -31,18 +31,31 @@ let adventRunners: [String: [String: AdventRunner]] = [
     ]
 ]
 
-guard let inputRootPath = ProcessInfo.processInfo.environment[environmentKeyInputRoot] else {
-    print("Environment variable \(environmentKeyInputRoot) not set")
+func getInputDirectoryURL(forYear year: String) throws -> URL {
+    guard let inputRootPath = ProcessInfo.processInfo.environment[environmentKeyInputRoot] else {
+        throw AdventError.environmentError("Environment variable \(environmentKeyInputRoot) not set")
+    }
+    return URL(fileURLWithPath: inputRootPath).appending(path: year)
+}
+
+func run(forYear year: String, andDay day: String, withInputDirectory inputDirectory: URL) throws {
+    guard let runner = adventRunners[year]?[day] else {
+        throw AdventError.invalidArguments("Invalid year/day (\(year)/\(day))")
+    }
+    print("Running advent \(runner.year) day \(runner.day)")
+    let elapsedTime = ContinuousClock().measure {
+        runner.run(withInputDirectoryURL: inputDirectory)
+    }
+    print("Elapsed time: \(elapsedTime)\n")
+}
+
+do {
+    let inputDirectory = try getInputDirectoryURL(forYear: runnerYear)
+    try run(forYear: runnerYear, andDay: runnerDay, withInputDirectory: inputDirectory)
+} catch AdventError.environmentError(let message) {
+    print("Environment error: \(message)")
+    exit(1)
+} catch AdventError.invalidArguments(let message) {
+    print("Usage error: \(message)")
     exit(2)
 }
-
-let inputDirectory = URL(fileURLWithPath: inputRootPath).appending(path: year)
-
-guard let runner = adventRunners[year]?[day] else {
-    print("Invalid year/day (provided \(year)/\(day))")
-    exit(1)
-}
-
-print("Running advent \(runner.year) day \(runner.day)")
-runner.run(withInputDirectoryURL: inputDirectory)
-print()
