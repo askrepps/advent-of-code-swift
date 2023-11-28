@@ -21,7 +21,6 @@
 // SOFTWARE.
 
 import Foundation
-import Foundation.NSPathUtilities
 
 let year = "2022"
 let day = "01"
