@@ -28,7 +28,7 @@ protocol AdventRunner {
     
     var inputFilename: String { get }
     
-    func run(withInputDirectoryURL: URL)
+    func run(withInputDirectoryURL: URL) throws
 }
 
 extension AdventRunner {

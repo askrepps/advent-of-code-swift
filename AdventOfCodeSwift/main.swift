@@ -42,7 +42,15 @@ func run(forYear year: String, andDay day: String, withInputDirectory inputDirec
     }
     print("Running advent \(runner.year) day \(runner.day)")
     let elapsedTime = ContinuousClock().measure {
-        runner.run(withInputDirectoryURL: inputDirectory)
+        do {
+            try runner.run(withInputDirectoryURL: inputDirectory)
+        } catch AdventError.invalidData(let message) {
+            print("Invalid input error: \(message)")
+        } catch AdventError.invalidState(let message) {
+            print("Invalid state error: \(message)")
+        } catch {
+            print("Unexpected error: \(error)")
+        }
     }
     print("Elapsed time: \(elapsedTime)\n")
 }

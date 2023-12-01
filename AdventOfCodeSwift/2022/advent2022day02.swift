@@ -168,19 +168,9 @@ class Advent2022Day02Runner: AdventRunner {
     var year = "2022"
     var day = "02"
     
-    func run(withInputDirectoryURL inputURL: URL) {
-        guard let lines = getInputLines(fromFileNamed: self.inputFilename, inDirectoryURL: inputURL) else {
-            return
-        }
-        do {
-            print("The answer to part 1 is \(try getPart1Answer(withLines: lines))")
-            print("The answer to part 2 is \(try getPart2Answer(withLines: lines))")
-        } catch AdventError.invalidData(let message) {
-            print("Input data error: \(message)")
-        } catch AdventError.invalidState(let message) {
-            print("Program state error: \(message)")
-        } catch {
-            print("Unexpected error: \(error)")
-        }
+    func run(withInputDirectoryURL inputURL: URL) throws {
+        let lines = try getInputLines(fromFileNamed: self.inputFilename, inDirectoryURL: inputURL)
+        print("The answer to part 1 is \(try getPart1Answer(withLines: lines))")
+        print("The answer to part 2 is \(try getPart2Answer(withLines: lines))")
     }
 }

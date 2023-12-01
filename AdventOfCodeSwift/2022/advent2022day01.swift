@@ -43,11 +43,8 @@ class Advent2022Day01Runner: AdventRunner {
     var year = "2022"
     var day = "01"
     
-    func run(withInputDirectoryURL inputURL: URL) {
-        guard let data = getInputText(fromFileNamed: self.inputFilename, inDirectoryURL: inputURL) else {
-            return
-        }
-
+    func run(withInputDirectoryURL inputURL: URL) throws {
+        let data = try getInputText(fromFileNamed: self.inputFilename, inDirectoryURL: inputURL)
         let calorieSums = convertToCalorieSums(data)
         print("The answer to part 1 is \(getPart1Answer(calorieSums))")
         print("The answer to part 2 is \(getPart2Answer(calorieSums))")

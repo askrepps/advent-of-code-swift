@@ -26,23 +26,20 @@ func getInputFilename(forYear year: String, andDay day: String) -> String {
     return "input-\(year)-day\(day).txt"
 }
 
-func getInputText(fromFileNamed inputFilename: String, inDirectoryURL directoryURL: URL) -> String? {
-    do {
-        let inputFileURL = directoryURL.appending(path: inputFilename)
-        let data = try String(contentsOf: inputFileURL, encoding: .utf8)
-        return data
-    } catch {
-        print("Error reading input: \(error)")
-        return nil
+func getInputText(fromFileNamed inputFilename: String, inDirectoryURL directoryURL: URL) throws -> String {
+    let inputFileURL = directoryURL.appending(path: inputFilename)
+    guard let data = try? String(contentsOf: inputFileURL, encoding: .utf8) else {
+        throw AdventError.invalidData("Failed to read input file \(inputFilename) from \(directoryURL.absoluteString)")
     }
+    return data
 }
 
 func getInputLines(
     fromFileNamed inputFilename: String,
     inDirectoryURL directoryURL: URL,
     includeBlankLines: Bool = false
-) -> [String]? {
-    return getInputText(fromFileNamed: inputFilename, inDirectoryURL: directoryURL)?
+) throws -> [String] {
+    return try getInputText(fromFileNamed: inputFilename, inDirectoryURL: directoryURL)
         .components(separatedBy: .newlines)
         .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
         .filter { includeBlankLines || !$0.isEmpty }
