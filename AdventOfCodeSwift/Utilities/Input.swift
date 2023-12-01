@@ -20,6 +20,19 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+import Foundation
+
 func getInputFilename(forYear year: String, andDay day: String) -> String {
     return "input-\(year)-day\(day).txt"
+}
+
+func getInputText(fromFileNamed inputFilename: String, inDirectoryURL directoryURL: URL) -> String? {
+    do {
+        let inputFileURL = directoryURL.appending(path: inputFilename)
+        let data = try String(contentsOf: inputFileURL, encoding: .utf8)
+        return data
+    } catch {
+        print("Error reading input: \(error)")
+        return nil
+    }
 }

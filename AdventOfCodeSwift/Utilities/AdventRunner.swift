@@ -26,5 +26,13 @@ protocol AdventRunner {
     var year: String { get }
     var day: String { get }
     
+    var inputFilename: String { get }
+    
     func run(withInputDirectoryURL: URL)
+}
+
+extension AdventRunner {
+    var inputFilename: String {
+        return getInputFilename(forYear: self.year, andDay: self.day)
+    }
 }

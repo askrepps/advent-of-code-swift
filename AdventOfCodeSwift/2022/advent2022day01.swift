@@ -40,19 +40,16 @@ private func getPart2Answer(_ calorieSums: [Int]) -> Int {
 }
 
 class Advent2022Day01Runner: AdventRunner {
-    var year: String = "2022"
-    var day: String = "01"
+    var year = "2022"
+    var day = "01"
     
     func run(withInputDirectoryURL inputURL: URL) {
-        do {
-            let inputFilename = getInputFilename(forYear: self.year, andDay: self.day)
-            let inputFileURL = inputURL.appending(path: inputFilename)
-            let data = try String(contentsOf: inputFileURL, encoding: .utf8)
-            let calorieSums = convertToCalorieSums(data)
-            print("The answer to part 1 is \(getPart1Answer(calorieSums))")
-            print("The answer to part 2 is \(getPart2Answer(calorieSums))")
-        } catch {
-            print("Error: \(error)")
+        guard let data = getInputText(fromFileNamed: self.inputFilename, inDirectoryURL: inputURL) else {
+            return
         }
+
+        let calorieSums = convertToCalorieSums(data)
+        print("The answer to part 1 is \(getPart1Answer(calorieSums))")
+        print("The answer to part 2 is \(getPart2Answer(calorieSums))")
     }
 }
