@@ -36,3 +36,14 @@ func getInputText(fromFileNamed inputFilename: String, inDirectoryURL directoryU
         return nil
     }
 }
+
+func getInputLines(
+    fromFileNamed inputFilename: String,
+    inDirectoryURL directoryURL: URL,
+    includeBlankLines: Bool = false
+) -> [String]? {
+    return getInputText(fromFileNamed: inputFilename, inDirectoryURL: directoryURL)?
+        .components(separatedBy: .newlines)
+        .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+        .filter { includeBlankLines || !$0.isEmpty }
+}

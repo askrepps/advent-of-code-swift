@@ -24,7 +24,8 @@ import Foundation
 
 let adventRunners: [String: [String: AdventRunner]] = [
     "2022": [
-        "01": Advent2022Day01Runner()
+        "01": Advent2022Day01Runner(),
+        "02": Advent2022Day02Runner()
     ]
 ]
 

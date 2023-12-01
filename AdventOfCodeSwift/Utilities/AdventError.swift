@@ -23,4 +23,6 @@
 enum AdventError: Error {
     case environmentError(String)
     case invalidArguments(String)
+    case invalidData(String)
+    case invalidState(String)
 }
