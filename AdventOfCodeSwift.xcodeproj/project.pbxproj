@@ -14,6 +14,7 @@
 		495087072B15702900907CF0 /* Input.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495087062B15702900907CF0 /* Input.swift */; };
 		495087092B1583A200907CF0 /* AdventError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495087082B1583A200907CF0 /* AdventError.swift */; };
 		49ECA7582B199599006E0D89 /* advent2022day02.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49ECA7572B199599006E0D89 /* advent2022day02.swift */; };
+		49ECA75B2B19A9EF006E0D89 /* advent2023day01.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49ECA75A2B19A9EF006E0D89 /* advent2023day01.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -37,6 +38,7 @@
 		495087062B15702900907CF0 /* Input.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Input.swift; sourceTree = "<group>"; };
 		495087082B1583A200907CF0 /* AdventError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdventError.swift; sourceTree = "<group>"; };
 		49ECA7572B199599006E0D89 /* advent2022day02.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = advent2022day02.swift; sourceTree = "<group>"; };
+		49ECA75A2B19A9EF006E0D89 /* advent2023day01.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = advent2023day01.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +71,7 @@
 		495086F22B14FFDB00907CF0 /* AdventOfCodeSwift */ = {
 			isa = PBXGroup;
 			children = (
+				49ECA7592B19A9E4006E0D89 /* 2023 */,
 				495086FF2B1525A500907CF0 /* Utilities */,
 				495086FC2B1524C900907CF0 /* 2022 */,
 				495086F32B14FFDB00907CF0 /* main.swift */,
@@ -94,6 +97,14 @@
 				495087062B15702900907CF0 /* Input.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		49ECA7592B19A9E4006E0D89 /* 2023 */ = {
+			isa = PBXGroup;
+			children = (
+				49ECA75A2B19A9EF006E0D89 /* advent2023day01.swift */,
+			);
+			path = 2023;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -154,6 +165,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49ECA75B2B19A9EF006E0D89 /* advent2023day01.swift in Sources */,
 				495087072B15702900907CF0 /* Input.swift in Sources */,
 				495087052B15377C00907CF0 /* Constants.swift in Sources */,
 				495087092B1583A200907CF0 /* AdventError.swift in Sources */,
