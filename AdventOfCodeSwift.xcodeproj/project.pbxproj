@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4903C0742B1B80EF00ECD8A3 /* advent2023day02.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4903C0732B1B80EF00ECD8A3 /* advent2023day02.swift */; };
 		495086F42B14FFDB00907CF0 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495086F32B14FFDB00907CF0 /* main.swift */; };
 		495086FE2B1524ED00907CF0 /* advent2022day01.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495086FD2B1524ED00907CF0 /* advent2022day01.swift */; };
 		495087012B1525BE00907CF0 /* AdventRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495087002B1525BE00907CF0 /* AdventRunner.swift */; };
@@ -30,6 +31,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4903C0732B1B80EF00ECD8A3 /* advent2023day02.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = advent2023day02.swift; sourceTree = "<group>"; };
 		495086F02B14FFDB00907CF0 /* AdventOfCodeSwift */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = AdventOfCodeSwift; sourceTree = BUILT_PRODUCTS_DIR; };
 		495086F32B14FFDB00907CF0 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		495086FD2B1524ED00907CF0 /* advent2022day01.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = advent2022day01.swift; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				49ECA75A2B19A9EF006E0D89 /* advent2023day01.swift */,
+				4903C0732B1B80EF00ECD8A3 /* advent2023day02.swift */,
 			);
 			path = 2023;
 			sourceTree = "<group>";
@@ -165,6 +168,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4903C0742B1B80EF00ECD8A3 /* advent2023day02.swift in Sources */,
 				49ECA75B2B19A9EF006E0D89 /* advent2023day01.swift in Sources */,
 				495087072B15702900907CF0 /* Input.swift in Sources */,
 				495087052B15377C00907CF0 /* Constants.swift in Sources */,
