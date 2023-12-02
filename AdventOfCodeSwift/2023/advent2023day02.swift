@@ -43,9 +43,9 @@ private func parseGame(from line: String) throws -> Game {
     for round in roundComponents {
         let pullComponents = round.components(separatedBy: ", ")
         for pull in pullComponents {
-            let pullComponents = pull.components(separatedBy: " ")
-            let color = pullComponents[1]
-            let value = Int(pullComponents[0]) ?? 0
+            let valueComponents = pull.components(separatedBy: " ")
+            let color = valueComponents[1]
+            let value = Int(valueComponents[0]) ?? 0
             switch color {
             case "red":
                 maxRed = max(maxRed, value)
