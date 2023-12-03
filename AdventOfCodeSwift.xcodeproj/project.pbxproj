@@ -14,6 +14,7 @@
 		495087052B15377C00907CF0 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495087042B15377C00907CF0 /* Constants.swift */; };
 		495087072B15702900907CF0 /* Input.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495087062B15702900907CF0 /* Input.swift */; };
 		495087092B1583A200907CF0 /* AdventError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495087082B1583A200907CF0 /* AdventError.swift */; };
+		49D25EBE2B1CF9F900DF9C2C /* advent2023day03.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D25EBD2B1CF9F900DF9C2C /* advent2023day03.swift */; };
 		49ECA7582B199599006E0D89 /* advent2022day02.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49ECA7572B199599006E0D89 /* advent2022day02.swift */; };
 		49ECA75B2B19A9EF006E0D89 /* advent2023day01.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49ECA75A2B19A9EF006E0D89 /* advent2023day01.swift */; };
 /* End PBXBuildFile section */
@@ -39,6 +40,7 @@
 		495087042B15377C00907CF0 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		495087062B15702900907CF0 /* Input.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Input.swift; sourceTree = "<group>"; };
 		495087082B1583A200907CF0 /* AdventError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdventError.swift; sourceTree = "<group>"; };
+		49D25EBD2B1CF9F900DF9C2C /* advent2023day03.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = advent2023day03.swift; sourceTree = "<group>"; };
 		49ECA7572B199599006E0D89 /* advent2022day02.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = advent2022day02.swift; sourceTree = "<group>"; };
 		49ECA75A2B19A9EF006E0D89 /* advent2023day01.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = advent2023day01.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -106,6 +108,7 @@
 			children = (
 				49ECA75A2B19A9EF006E0D89 /* advent2023day01.swift */,
 				4903C0732B1B80EF00ECD8A3 /* advent2023day02.swift */,
+				49D25EBD2B1CF9F900DF9C2C /* advent2023day03.swift */,
 			);
 			path = 2023;
 			sourceTree = "<group>";
@@ -170,6 +173,7 @@
 			files = (
 				4903C0742B1B80EF00ECD8A3 /* advent2023day02.swift in Sources */,
 				49ECA75B2B19A9EF006E0D89 /* advent2023day01.swift in Sources */,
+				49D25EBE2B1CF9F900DF9C2C /* advent2023day03.swift in Sources */,
 				495087072B15702900907CF0 /* Input.swift in Sources */,
 				495087052B15377C00907CF0 /* Constants.swift in Sources */,
 				495087092B1583A200907CF0 /* AdventError.swift in Sources */,

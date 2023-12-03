@@ -1,0 +1,133 @@
+// MIT License
+//
+// Copyright (c) 2023 Andrew Krepps
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+
+import Foundation
+
+private struct GridCoordinates: Hashable {
+    let row: Int
+    let column: Int
+}
+
+private struct GridNumber {
+    let row: Int
+    let startColumn: Int
+    let endColumn: Int
+    let value: UInt64
+    
+    func getSurroundingCoordinates() -> Set<GridCoordinates> {
+        var coordinates = Set<GridCoordinates>()
+        for column in (startColumn - 1)...(endColumn + 1) {
+            coordinates.insert(GridCoordinates(row: row - 1, column: column))
+            coordinates.insert(GridCoordinates(row: row + 1, column: column))
+        }
+        coordinates.insert(GridCoordinates(row: row, column: startColumn - 1))
+        coordinates.insert(GridCoordinates(row: row, column: endColumn + 1))
+        return coordinates
+    }
+}
+
+private struct GridSymbol {
+    let coordinates: GridCoordinates
+    let value: Character
+}
+
+private func parseGridNumbers(_ lines: [String]) throws -> [GridNumber] {
+    var numbers: [GridNumber] = []
+    var accumulator: UInt64? = nil
+    var startColumn: Int? = nil
+    for (currentRow, line) in lines.enumerated() {
+        for (currentColumn, token) in line.enumerated() {
+            if token.isNumber {
+                startColumn = startColumn ?? currentColumn
+                accumulator = 10 * (accumulator ?? 0) + UInt64(token.wholeNumberValue ?? 0)
+            } else if let value = accumulator {
+                if startColumn == nil {
+                    throw AdventError.invalidState("Accumulated value with missing start column")
+                }
+                numbers.append(
+                    GridNumber(row: currentRow, startColumn: startColumn!, endColumn: currentColumn - 1, value: value)
+                )
+                accumulator = nil
+                startColumn = nil
+            }
+        }
+        if let value = accumulator {
+            if startColumn == nil {
+                throw AdventError.invalidState("Accumulated value with missing start column")
+            }
+            numbers.append(
+                GridNumber(row: currentRow, startColumn: startColumn!, endColumn: line.count - 1, value: value)
+            )
+            accumulator = nil
+            startColumn = nil
+        }
+    }
+    return numbers
+}
+
+private func parseGridSymbols(_ lines: [String]) -> [GridSymbol] {
+    var symbols: [GridSymbol] = []
+    for (currentRow, line) in lines.enumerated() {
+        for (currentColumn, token) in line.enumerated() {
+            if token != "." && !token.isNumber {
+                symbols.append(
+                    GridSymbol(
+                        coordinates: GridCoordinates(row: currentRow, column: currentColumn),
+                        value: token
+                    )
+                )
+            }
+        }
+    }
+    return symbols
+}
+
+private func getPart1Answer(_ numbers: [GridNumber], _ symbols: [GridSymbol]) -> UInt64 {
+    let symbolCoordinates = Set(symbols.map { $0.coordinates })
+    return numbers.filter {
+        !$0.getSurroundingCoordinates().intersection(symbolCoordinates).isEmpty
+    }.reduce(0) { (total, number) in
+        total + number.value
+    }
+}
+
+private func getPart2Answer(_ numbers: [GridNumber], _ symbols: [GridSymbol]) -> UInt64 {
+    return symbols.filter { $0.value == "*" }
+        .map { gear in numbers.filter { $0.getSurroundingCoordinates().contains(gear.coordinates) } }
+        .filter { $0.count == 2 }
+        .reduce(0) { (total, numbers) in
+            total + numbers[0].value * numbers[1].value
+        }
+}
+
+class Advent2023Day03Runner: AdventRunner {
+    let year = "2023"
+    let day = "03"
+    
+    func run(withInputDirectoryURL inputURL: URL) throws {
+        let lines = try getInputLines(fromFileNamed: self.inputFilename, inDirectoryURL: inputURL)
+        let numbers = try parseGridNumbers(lines)
+        let symbols = parseGridSymbols(lines)
+        print("The answer to part 1 is \(getPart1Answer(numbers, symbols))")
+        print("The answer to part 2 is \(getPart2Answer(numbers, symbols))")
+    }
+}
