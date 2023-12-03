@@ -65,31 +65,30 @@ private func parseGridNumbers(_ lines: [String]) throws -> [GridNumber] {
     var numbers: [GridNumber] = []
     var accumulator: UInt64? = nil
     var startColumn: Int? = nil
+    
+    func finalizeAccumulatedNumber(row: Int, endColumn: Int) throws {
+        guard accumulator != nil else {
+            throw AdventError.invalidState("No value accumulated")
+        }
+        guard startColumn != nil else {
+            throw AdventError.invalidState("Accumulated value with missing start column")
+        }
+        numbers.append(GridNumber(row: row, startColumn: startColumn!, endColumn: endColumn, value: accumulator!))
+        accumulator = nil
+        startColumn = nil
+    }
+    
     for (currentRow, line) in lines.enumerated() {
         for (currentColumn, token) in line.enumerated() {
             if token.isNumber {
                 startColumn = startColumn ?? currentColumn
                 accumulator = 10 * (accumulator ?? 0) + UInt64(token.wholeNumberValue ?? 0)
-            } else if let value = accumulator {
-                if startColumn == nil {
-                    throw AdventError.invalidState("Accumulated value with missing start column")
-                }
-                numbers.append(
-                    GridNumber(row: currentRow, startColumn: startColumn!, endColumn: currentColumn - 1, value: value)
-                )
-                accumulator = nil
-                startColumn = nil
+            } else if accumulator != nil {
+                try finalizeAccumulatedNumber(row: currentRow, endColumn: currentColumn - 1)
             }
         }
-        if let value = accumulator {
-            if startColumn == nil {
-                throw AdventError.invalidState("Accumulated value with missing start column")
-            }
-            numbers.append(
-                GridNumber(row: currentRow, startColumn: startColumn!, endColumn: line.count - 1, value: value)
-            )
-            accumulator = nil
-            startColumn = nil
+        if accumulator != nil {
+            try finalizeAccumulatedNumber(row: currentRow, endColumn: line.count - 1)
         }
     }
     return numbers
