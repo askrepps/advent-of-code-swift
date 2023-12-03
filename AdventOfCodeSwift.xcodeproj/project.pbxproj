@@ -73,9 +73,9 @@
 		495086F22B14FFDB00907CF0 /* AdventOfCodeSwift */ = {
 			isa = PBXGroup;
 			children = (
+				495086FC2B1524C900907CF0 /* 2022 */,
 				49ECA7592B19A9E4006E0D89 /* 2023 */,
 				495086FF2B1525A500907CF0 /* Utilities */,
-				495086FC2B1524C900907CF0 /* 2022 */,
 				495086F32B14FFDB00907CF0 /* main.swift */,
 			);
 			path = AdventOfCodeSwift;
