@@ -95,20 +95,15 @@ private func parseGridNumbers(_ lines: [String]) throws -> [GridNumber] {
 }
 
 private func parseGridSymbols(_ lines: [String]) -> [GridSymbol] {
-    var symbols: [GridSymbol] = []
-    for (currentRow, line) in lines.enumerated() {
-        for (currentColumn, token) in line.enumerated() {
+    return lines.enumerated().flatMap { (row, line) in
+        line.enumerated().compactMap { (column, token) in
             if token != "." && !token.isNumber {
-                symbols.append(
-                    GridSymbol(
-                        coordinates: GridCoordinates(row: currentRow, column: currentColumn),
-                        value: token
-                    )
-                )
+                GridSymbol(coordinates: GridCoordinates(row: row, column: column), value: token)
+            } else {
+                nil
             }
         }
     }
-    return symbols
 }
 
 private func getPart1Answer(_ numbers: [GridNumber], _ symbols: [GridSymbol]) -> UInt64 {
