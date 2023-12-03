@@ -33,21 +33,32 @@ private struct GridNumber {
     let endColumn: Int
     let value: UInt64
     
-    func getSurroundingCoordinates() -> Set<GridCoordinates> {
-        var coordinates = Set<GridCoordinates>()
-        for column in (startColumn - 1)...(endColumn + 1) {
-            coordinates.insert(GridCoordinates(row: row - 1, column: column))
-            coordinates.insert(GridCoordinates(row: row + 1, column: column))
-        }
-        coordinates.insert(GridCoordinates(row: row, column: startColumn - 1))
-        coordinates.insert(GridCoordinates(row: row, column: endColumn + 1))
-        return coordinates
+    let surroundingCoordinates: Set<GridCoordinates>
+    
+    init(row: Int, startColumn: Int, endColumn: Int, value: UInt64) {
+        self.row = row
+        self.startColumn = startColumn
+        self.endColumn = endColumn
+        self.value = value
+        self.surroundingCoordinates =
+            calculateSurroundingCoordinates(row: row, startColumn: startColumn, endColumn: endColumn)
     }
 }
 
 private struct GridSymbol {
     let coordinates: GridCoordinates
     let value: Character
+}
+
+private func calculateSurroundingCoordinates(row: Int, startColumn: Int, endColumn: Int) -> Set<GridCoordinates> {
+    var coordinates = Set<GridCoordinates>()
+    for column in (startColumn - 1)...(endColumn + 1) {
+        coordinates.insert(GridCoordinates(row: row - 1, column: column))
+        coordinates.insert(GridCoordinates(row: row + 1, column: column))
+    }
+    coordinates.insert(GridCoordinates(row: row, column: startColumn - 1))
+    coordinates.insert(GridCoordinates(row: row, column: endColumn + 1))
+    return coordinates
 }
 
 private func parseGridNumbers(_ lines: [String]) throws -> [GridNumber] {
@@ -104,7 +115,7 @@ private func parseGridSymbols(_ lines: [String]) -> [GridSymbol] {
 private func getPart1Answer(_ numbers: [GridNumber], _ symbols: [GridSymbol]) -> UInt64 {
     let symbolCoordinates = Set(symbols.map { $0.coordinates })
     return numbers.filter {
-        !$0.getSurroundingCoordinates().intersection(symbolCoordinates).isEmpty
+        !$0.surroundingCoordinates.intersection(symbolCoordinates).isEmpty
     }.reduce(0) { (total, number) in
         total + number.value
     }
@@ -112,7 +123,7 @@ private func getPart1Answer(_ numbers: [GridNumber], _ symbols: [GridSymbol]) ->
 
 private func getPart2Answer(_ numbers: [GridNumber], _ symbols: [GridSymbol]) -> UInt64 {
     return symbols.filter { $0.value == "*" }
-        .map { gear in numbers.filter { $0.getSurroundingCoordinates().contains(gear.coordinates) } }
+        .map { gear in numbers.filter { $0.surroundingCoordinates.contains(gear.coordinates) } }
         .filter { $0.count == 2 }
         .reduce(0) { (total, numbers) in
             total + numbers[0].value * numbers[1].value
