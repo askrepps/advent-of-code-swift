@@ -30,7 +30,8 @@ let adventRunners: [String: [String: AdventRunner]] = [
     "2023": [
         "01": Advent2023Day01Runner(),
         "02": Advent2023Day02Runner(),
-        "03": Advent2023Day03Runner()
+        "03": Advent2023Day03Runner(),
+        "04": Advent2023Day04Runner()
     ]
 ]
 
