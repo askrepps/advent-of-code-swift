@@ -38,6 +38,44 @@ private struct AlmanacMapEntry {
     let destinationStartId: UInt64
     let sourceStartId: UInt64
     let rangeLength: UInt64
+    
+    func sourceRangeOverlapsWith(_ other: AlmanacMapEntry) -> Bool {
+        return rangesOverlap(
+            start1: sourceStartId,
+            length1: rangeLength,
+            start2: other.sourceStartId,
+            length2: other.rangeLength
+        )
+    }
+    
+    func destinationRangeOverlapsWith(_ other: AlmanacMapEntry) -> Bool {
+        return rangesOverlap(
+            start1: destinationStartId,
+            length1: rangeLength,
+            start2: other.destinationStartId,
+            length2: other.rangeLength
+        )
+    }
+}
+
+private func rangesOverlap(start1: UInt64, length1: UInt64, start2: UInt64, length2: UInt64) -> Bool {
+    let end1 = start1 + length1 - 1
+    let end2 = start2 + length2 - 1
+    return end1 >= start2 && start1 <= end2
+}
+
+private func sanityCheckNoOverlappingRanges(_ entries: [AlmanacMapEntry]) -> Bool {
+    for (idx, entry) in entries.enumerated() {
+        if idx >= entries.count - 1 {
+            continue
+        }
+        for otherEntry in entries[(idx + 1)...] {
+            if entry.sourceRangeOverlapsWith(otherEntry) || entry.destinationRangeOverlapsWith(otherEntry) {
+                return false
+            }
+        }
+    }
+    return true
 }
 
 private func parseAlmanacMap(_ mapChunk: String) throws -> AlmanacMap {
@@ -60,6 +98,11 @@ private func parseAlmanacMap(_ mapChunk: String) throws -> AlmanacMap {
             destinationStartId: destinationStartId,
             sourceStartId: sourceStartId,
             rangeLength: rangeLength
+        )
+    }
+    guard sanityCheckNoOverlappingRanges(entries) else {
+        throw AdventError.invalidAssumption(
+            "Map from \(sourceType) to \(destinationType) has overlapping ranges, so it is not 1:1"
         )
     }
     return AlmanacMap(sourceType: sourceType, destinationType: destinationType, entries: entries)

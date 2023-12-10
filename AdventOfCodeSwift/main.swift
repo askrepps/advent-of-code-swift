@@ -55,6 +55,8 @@ func run(forYear year: String, andDay day: String, withInputDirectory inputDirec
             print("Invalid input error: \(message)")
         } catch AdventError.invalidState(let message) {
             print("Invalid state error: \(message)")
+        } catch AdventError.invalidAssumption(let message) {
+            print("Invalid assumption error: \(message)")
         } catch {
             print("Unexpected error: \(error)")
         }

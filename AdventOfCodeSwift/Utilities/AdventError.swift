@@ -25,4 +25,5 @@ enum AdventError: Error {
     case invalidArguments(String)
     case invalidData(String)
     case invalidState(String)
+    case invalidAssumption(String)
 }
