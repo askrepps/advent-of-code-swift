@@ -25,6 +25,7 @@ import Foundation
 private struct Almanac {
     let seeds: [UInt64]
     let mapsBySource: [String: AlmanacMap]
+    let mapsByDestination: [String: AlmanacMap]
 }
 
 private struct AlmanacMap {
@@ -69,12 +70,16 @@ private func parseAlmanac(_ inputData: String) throws -> Almanac {
     let seeds = chunks[0].components(separatedBy: ": ")[1]
         .components(separatedBy: " ")
         .compactMap { UInt64($0) }
-    let mapsBySource = try chunks.dropFirst().map {
+    let maps = try chunks.dropFirst().map {
         try parseAlmanacMap($0.trimmingCharacters(in: .whitespacesAndNewlines))
-    }.reduce(into: [String: AlmanacMap]()) { (data, map) in
+    }
+    let mapsBySource = maps.reduce(into: [String: AlmanacMap]()) { (data, map) in
         data[map.sourceType] = map
     }
-    return Almanac(seeds: seeds, mapsBySource: mapsBySource)
+    let mapsByDestination = maps.reduce(into: [String: AlmanacMap]()) { (data, map) in
+        data[map.destinationType] = map
+    }
+    return Almanac(seeds: seeds, mapsBySource: mapsBySource, mapsByDestination: mapsByDestination)
 }
 
 private func getLocation(forSeed seed: UInt64, in almanac: Almanac) throws -> UInt64 {
@@ -82,7 +87,7 @@ private func getLocation(forSeed seed: UInt64, in almanac: Almanac) throws -> UI
     var currentType = "seed"
     while currentType != "location" {
         guard let map = almanac.mapsBySource[currentType] else {
-            throw AdventError.invalidState("No map for source \(currentType)")
+            throw AdventError.invalidData("No map for source \(currentType)")
         }
         for entry in map.entries {
             if currentId >= entry.sourceStartId && currentId < entry.sourceStartId + entry.rangeLength {
@@ -92,6 +97,25 @@ private func getLocation(forSeed seed: UInt64, in almanac: Almanac) throws -> UI
             }
         }
         currentType = map.destinationType
+    }
+    return currentId
+}
+
+private func getSeed(forLocation location: UInt64, in almanac: Almanac) throws -> UInt64 {
+    var currentId = location
+    var currentType = "location"
+    while currentType != "seed" {
+        guard let map = almanac.mapsByDestination[currentType] else {
+            throw AdventError.invalidData("No map for destination \(currentType)")
+        }
+        for entry in map.entries {
+            if currentId >= entry.destinationStartId && currentId < entry.destinationStartId + entry.rangeLength {
+                currentId -= entry.destinationStartId
+                currentId += entry.sourceStartId
+                break
+            }
+        }
+        currentType = map.sourceType
     }
     return currentId
 }
@@ -107,15 +131,22 @@ private func getPart1Answer(_ almanac: Almanac) throws -> UInt64 {
     return try getMinimumLocation(withSeeds: almanac.seeds, in: almanac)
 }
 
-private func getPart2Answer(_ alamanac: Almanac) throws -> UInt64 {
-    var realSeeds = Set<UInt64>()
-    for pairNumber in 0..<(alamanac.seeds.count / 2) {
-        let startId = alamanac.seeds[pairNumber * 2]
-        let rangeLength = alamanac.seeds[pairNumber * 2 + 1]
-        realSeeds.formUnion(startId..<(startId + rangeLength))
+private func getPart2Answer(_ almanac: Almanac) throws -> UInt64 {
+    let seedRanges = (0..<(almanac.seeds.count / 2)).map {
+        let pairOffset = $0 * 2
+        let startId = almanac.seeds[pairOffset]
+        let rangeLength = almanac.seeds[pairOffset + 1]
+        return startId..<(startId + rangeLength)
     }
-    print(realSeeds.count)
-    return try getMinimumLocation(withSeeds: realSeeds, in: alamanac)
+    for location in UInt64(0)... {
+        let seed = try getSeed(forLocation: location, in: almanac)
+        for range in seedRanges {
+            if range.contains(seed) {
+                return location
+            }
+        }
+    }
+    throw AdventError.invalidState("No matching location found")
 }
 
 class Advent2023Day05Runner: AdventRunner {
